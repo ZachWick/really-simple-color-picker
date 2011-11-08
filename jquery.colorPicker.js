@@ -107,6 +107,11 @@
         top:  $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()),
         left: $(selectorOwner).offset().left,
       });	
+    } else if ($.fn.colorPicker.picker_pos == 'top-right') {
+      selector.css({
+        top: $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()) - (selector.height()*1.30),
+        left: $(selectorOwner).offset().left,
+      });
     }
     hexColor = $(selectorOwner).prev("input").val();
     $("input#color_value").val(hexColor);
