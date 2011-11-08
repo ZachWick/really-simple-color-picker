@@ -91,12 +91,23 @@
   showSelector = function(){
     var selector = $("div#color_selector");
     
-    //alert($(selectorOwner).offset().top);
-    
-    selector.css({
-      top: $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()),
-      left: $(selectorOwner).offset().left
-    }); 
+    //console.log($(selectorOwner).offset());
+    if ($.fn.colorPicker.picker_pos == 'bottom-left') {
+      selector.css({
+        top:  $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()),
+        left: $(selectorOwner).offset().left - selector.width() + 30,
+      }); 
+    } else if ($.fn.colorPicker.picker_pos == 'top-left') {
+      selector.css({
+        top: $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()) - (selector.height()*1.30),
+        left: $(selectorOwner).offset().left - selector.width() + 30,
+      });
+    } else if ($.fn.colorPicker.picker_pos == 'bottom-right') {
+      selector.css({
+        top:  $(selectorOwner).offset().top + ($(selectorOwner).outerHeight()),
+        left: $(selectorOwner).offset().left,
+      });	
+    }
     hexColor = $(selectorOwner).prev("input").val();
     $("input#color_value").val(hexColor);
     selector.show();
@@ -155,10 +166,12 @@
   $.fn.colorPicker.addColors = function(colorArray){
     $.fn.colorPicker.defaultColors = $.fn.colorPicker.defaultColors.concat(colorArray);
   };
-  
+  $.fn.colorPicker.options = function(pos) {
+    $.fn.colorPicker.picker_pos = pos;
+  };
   $.fn.colorPicker.defaultColors = 
 	[ '000000', '993300','333300', '000080', '333399', '333333', '800000', 'FF6600', '808000', '008000', '008080', '0000FF', '666699', '808080', 'FF0000', 'FF9900', '99CC00', '339966', '33CCCC', '3366FF', '800080', '999999', 'FF00FF', 'FFCC00', 'FFFF00', '00FF00', '00FFFF', '00CCFF', '993366', 'C0C0C0', 'FF99CC', 'FFCC99', 'FFFF99' , 'CCFFFF', '99CCFF', 'FFFFFF'];
-  
+  $.fn.colorPicker.picker_pos = 'bottom-right';
 })(jQuery);
 
 
